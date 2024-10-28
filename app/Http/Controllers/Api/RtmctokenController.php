@@ -18,9 +18,13 @@ class RtmctokenController extends Controller
         // $appID = "858e98ae022643ee98cab45bab50fb84";
         // $appCertificate = "24eff318410546b3b51e415668b53d04";
 
-        $agora = Cache::rememberForever('agora', function () {
-            return Agora::first();
-        });
+        // $agora = Cache::rememberForever('agora', function () {
+        //     return Agora::first();
+        // });
+        // Cache::flush();
+        $agora = Agora::first();
+
+
         $appID = $agora->app_id;
         $appCertificate = $agora->app_certificate;
 
