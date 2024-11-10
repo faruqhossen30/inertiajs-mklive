@@ -3,8 +3,11 @@
 use App\Http\Controllers\Admin\AgoraController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboarController;
+use App\Http\Controllers\Admin\EmojiController;
+use App\Http\Controllers\Admin\GiftController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\WallpeperController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,6 +21,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('setting/agora', [AgoraController::class, 'store'])->name('settings.agora.store');
     // Users
     Route::get('users', [UserController::class, 'index'])->name('admin.users');
+    Route::resource('gifts', GiftController::class);
+    Route::resource('emojis', EmojiController::class);
+    Route::resource('wallpapers', WallpeperController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

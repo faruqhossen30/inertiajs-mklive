@@ -20,14 +20,16 @@ import {
     ChevronRightIcon,
     Cog6ToothIcon,
     DocumentDuplicateIcon,
+    FaceSmileIcon,
     FolderIcon,
+    GiftIcon,
     HomeIcon,
     UserGroupIcon,
     UsersIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 
 
 function classNames(...classes) {
@@ -37,23 +39,11 @@ function classNames(...classes) {
 
 const navigation = [
     { name: 'Dashboard', href: route('dashboard'), icon: HomeIcon, current: true },
-    { name: 'Category', href: route('category.index'), icon: FolderIcon, current: false },
     { name: 'Users', href: route('admin.users'), icon: UserGroupIcon, current: false },
-    {
-        name: 'Dropdown',
-        icon: UserGroupIcon,
-        current: false,
-        children: [
-            { name: 'One', href: '#' },
-            { name: 'Two', href: '#'},
-            { name: 'Three', href: '#' },
-        ],
-    },
-    { name: 'Department', href: '#', icon: UsersIcon, current: true },
-    { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-    { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-    { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
-    { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
+    { name: 'Gifts', href: route('gifts.index'), icon: GiftIcon, current: false },
+    { name: 'Emoji', href: route('emojis.index'), icon: FaceSmileIcon, current: false },
+    { name: 'Wallpagers', href: route('wallpapers.index'), icon: FaceSmileIcon, current: false },
+
 ];
 
 const teams = [
@@ -63,6 +53,9 @@ const teams = [
 ];
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+    const {props} = usePage();
+    console.log(props);
+
     return (
         <>
             <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
@@ -89,7 +82,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <div className="flex h-16 shrink-0 items-center">
                                 <img
                                     alt="Your Company"
-                                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                    src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
                                     className="h-8 w-auto"
                                 />
                             </div>
@@ -147,7 +140,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     <div className="flex h-16 shrink-0 items-center">
                         <img
                             alt="Your Company"
-                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                            src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
                             className="h-8 w-auto"
                         />
                         <span className="px-2 font-extrabold text-lg">Dashboard</span>
