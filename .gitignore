@@ -7,7 +7,6 @@
 /storage/*.key
 /vendor
 /resources/js/firebase.js
-firebase.json
 .env
 .env.backup
 .env.production
