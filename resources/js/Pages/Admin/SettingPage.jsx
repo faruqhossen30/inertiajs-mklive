@@ -23,7 +23,7 @@ export default function SettingPage() {
                         <span className="text-indigo-600 font-semibold leading-6">Lorem ipsum dolor</span>
                     </div>
                     <div className='px-5'>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias ad unde necessitatibus neque eius suscipit debitis molestias non excepturi veritatis quae sapiente, iure nesciunt sed fugiat dolorem. Corporis, officia praesentium?</p>
+
                     </div>
                 </div>
             </div>

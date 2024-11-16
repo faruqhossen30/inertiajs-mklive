@@ -23,7 +23,7 @@ const SettingSidebar = () => {
     ]
     const secondaryNavigation = [
         { name: 'Wesbsite', href: '#', icon: GlobeAltIcon, current: true },
-        { name: 'Agora', href: route('settings.agora.create'), icon: FingerPrintIcon, current: false },
+        // { name: 'Agora', href: route('settings.agora.create'), icon: FingerPrintIcon, current: false },
         { name: 'Notifications', href: '#', icon: BellIcon, current: false },
         { name: 'Plan', href: '#', icon: CubeIcon, current: false },
         { name: 'Billing', href: '#', icon: CreditCardIcon, current: false },

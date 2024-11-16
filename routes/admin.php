@@ -21,6 +21,16 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('setting/agora', [AgoraController::class, 'store'])->name('settings.agora.store');
     // Users
     Route::get('users', [UserController::class, 'index'])->name('admin.users');
+    Route::get('user/{uid}', [UserController::class, 'show'])->name('admin.user.show');
+
+    Route::get('user/{uid}/deposit', [UserController::class, 'deposit'])->name('admin.user.deposit');
+
+
+
+
+
+
+
     Route::resource('gifts', GiftController::class);
     Route::resource('emojis', EmojiController::class);
     Route::resource('wallpapers', WallpeperController::class);
