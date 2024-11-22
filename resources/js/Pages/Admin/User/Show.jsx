@@ -3,7 +3,7 @@ import { db } from '@/firebase'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { CogIcon, EyeIcon, PencilIcon, PlusCircleIcon, PlusIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Head, Link, router, usePage } from '@inertiajs/react'
-import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
@@ -43,6 +43,7 @@ const Show = () => {
         fetchDocument();
     }, []);
 
+    // Host
     const setToHost = async () => {
         try {
             const docRef = doc(db, "users", uid);
@@ -65,7 +66,59 @@ const Show = () => {
         }
     };
 
-    console.log(typeof user);
+    const setToAgency = async () => {
+        try {
+            const docRef = doc(db, "users", uid);
+            updateDoc(docRef, {
+                agency: {
+                    name: user.name,
+                    hostingList: [],
+                    start: serverTimestamp(),
+                    status: true
+                }
+            })
+            console.log("Document updated successfully!");
+            location.reload()
+        } catch (error) {
+            console.error("Error updating document:", error);
+        }
+    };
+
+    const removeFromAgency = async () => {
+        try {
+            const docRef = doc(db, "users", uid);
+            updateDoc(docRef, { agency: null })
+            console.log("Document updated successfully!");
+            location.reload()
+        } catch (error) {
+            console.error("Error updating document:", error);
+        }
+    };
+
+    // Topup
+
+    const setTopUp = async () => {
+        try {
+            const docRef = doc(db, "users", uid);
+            updateDoc(docRef, { isTopup: true })
+            console.log("Document updated successfully!");
+            location.reload()
+        } catch (error) {
+            console.error("Error updating document:", error);
+        }
+    };
+
+    const removeFromTopUp = async () => {
+        try {
+            const docRef = doc(db, "users", uid);
+            updateDoc(docRef, { isTopup: false })
+            console.log("Document updated successfully!");
+            location.reload()
+        } catch (error) {
+            console.error("Error updating document:", error);
+        }
+    };
+
 
 
 
@@ -124,10 +177,30 @@ const Show = () => {
                     </DescriptionDetails>
 
                     <DescriptionTerm>Agency</DescriptionTerm>
-                    <DescriptionDetails>{user.isAgency ? 'Yes' : 'No'}</DescriptionDetails>
+                    <DescriptionDetails>
+                        {user.agency ?
+                            <button onClick={() => removeFromAgency()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
+                                <XMarkIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Remove From Agency {user.isHost}</span>
+                            </button>
+
+                            : <button onClick={() => setToAgency()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
+                                <PlusCircleIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Set to Agency {user.isHost}</span>
+                            </button>
+                        }
+                    </DescriptionDetails>
 
                     <DescriptionTerm>Topup</DescriptionTerm>
-                    <DescriptionDetails>{user.isTopup ? 'Yes' : 'No'}</DescriptionDetails>
+                    <DescriptionDetails>
+                        {user.isTopup ?
+                            <button onClick={() => removeFromTopUp()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
+                                <XMarkIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Remove From TopUP {user.isHost}</span>
+                            </button>
+
+                            : <button onClick={() => setTopUp()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
+                                <PlusCircleIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Set to TopUp {user.isHost}</span>
+                            </button>
+                        }
+                    </DescriptionDetails>
 
 
 

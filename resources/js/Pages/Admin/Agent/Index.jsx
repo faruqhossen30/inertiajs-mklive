@@ -3,7 +3,7 @@ import { db } from '@/firebase'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { CogIcon, EyeIcon, GiftIcon, PencilIcon } from '@heroicons/react/24/outline'
 import { Head, Link } from '@inertiajs/react'
-import { collection, getDocs,orderBy } from 'firebase/firestore'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
@@ -14,7 +14,8 @@ const Index = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const querySnapshot = await getDocs(collection(db, "users"));
+            const q = query(collection(db, "users"), where("agency", "!=", false));
+            const querySnapshot = await getDocs(q);
             const items = querySnapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
@@ -31,7 +32,7 @@ const Index = () => {
         >
             <Head title="Dashboard" />
             <div className="flex justify-between items-center">
-                <BreadcumComponent pageOne="Users" pageOneRoute="admin.users" />
+                <BreadcumComponent pageOne="Agency" pageOneRoute="admin.agents" />
             </div>
 
             <div className="flex flex-col">
@@ -54,7 +55,7 @@ const Index = () => {
                                 <TableBody>
                                     {users.map((user, index) => (
                                         <TableRow key={index}>
-                                            <TableCell className="font-medium">{index+1}</TableCell>
+                                            <TableCell className="font-medium">{index + 1}</TableCell>
                                             <TableCell className="font-medium">
                                                 <img src={user.photoURL} alt="photo" className="h-10 rounded border" />
                                             </TableCell>

@@ -43,6 +43,16 @@ const navigation = [
     { name: 'Gifts', href: route('gifts.index'), icon: GiftIcon, current: false },
     { name: 'Emoji', href: route('emojis.index'), icon: FaceSmileIcon, current: false },
     { name: 'Wallpagers', href: route('wallpapers.index'), icon: FaceSmileIcon, current: false },
+    {
+        name: 'Admin',
+        icon: UserGroupIcon,
+        current: false,
+        children: [
+            { name: 'Host List', href: route('admin.hosts')},
+            { name: 'Agent List', href: route('admin.agents')},
+            { name: 'TopUp List', href: route('admin.agents')},
+        ],
+    },
 
 ];
 
@@ -54,7 +64,6 @@ const teams = [
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const {props} = usePage();
-    console.log(props);
 
     return (
         <>

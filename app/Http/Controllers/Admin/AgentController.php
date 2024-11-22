@@ -5,17 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Inertia\Response;
-use Google\Cloud\Firestore\FirestoreClient;
 
-class UserController extends Controller
+class AgentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Admin/User/Index');
+        return Inertia::render('Admin/Agent/Index');
     }
 
     /**
@@ -37,9 +35,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $uid)
+    public function show(string $id)
     {
-        return Inertia::render('Admin/User/Show');
+        //
     }
 
     /**
@@ -64,19 +62,5 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-
-    public function deposit(string $uid)
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function setAsHost(string $uid)
-    {
-
     }
 }

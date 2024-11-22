@@ -19,11 +19,9 @@ const Create = () => {
 
     function submit(e){
         e.preventDefault()
-        createGift();
-        // post(route('gifts.store'));
-
-        // console.log(data);
+        post(route('gifts.store'));
     }
+
     const createGift = async ()=>{
         const docRef = await addDoc(collection(db, "gifts"),{
             name: data.name,

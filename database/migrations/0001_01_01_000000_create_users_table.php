@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('uid')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('diamond_password')->nullable();
             $table->string('photo_url')->nullable();
             $table->rememberToken();
             $table->timestamps();

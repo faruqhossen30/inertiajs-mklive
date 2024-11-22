@@ -2,8 +2,8 @@ import BreadcumComponent from '@/Components/Dashboard/BreadcumComponent'
 import { db } from '@/firebase'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { CogIcon, EyeIcon, PencilIcon, PlusCircleIcon, PlusIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Head, Link, router, usePage } from '@inertiajs/react'
-import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react'
+import { addDoc, collection, doc, FieldValue, getDoc, getDocs, increment, serverTimestamp, updateDoc } from 'firebase/firestore'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
@@ -13,14 +13,53 @@ import { DeleteAlert } from '@/Components/Alert/DeleteAlert'
 import { StatusAlert } from '@/Components/Alert/StatusAlert'
 import { Button } from '@/Components/button'
 import SubmitButton from '@/Components/Form/SubmitButton'
+import { ErrorMessage, Field, Label } from '@/Components/fieldset'
+import { Input } from '@/Components/input'
 
 
 const Deposit = () => {
     const { uid } = route().params;
-
+    // const params = route().params;
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [Error, setError] = useState(null);
+
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        diamond: '',
+        password: '',
+    });
+
+
+    function submit(e) {
+        e.preventDefault()
+        post(route('admin.user.deposit.store', uid),
+            {
+                onSuccess: () => {
+                    depositDiamond();
+                },
+                onError: () => {
+                    console.log('onError');
+                }
+            }
+        );
+    }
+
+    const depositDiamond = async ()=>{
+        const reciverRef = doc(db, "users", uid);
+        await updateDoc(reciverRef, {
+            diamond: increment(data.diamond)
+        })
+        const docRef = await addDoc(collection(db, "deposits"),{
+            reciverRef: reciverRef,
+            diamond: data.diamond,
+            depositBy: 'admin',
+            createdAt: serverTimestamp(),
+        });
+        location.reload();
+    }
+
+
+
 
 
     useEffect(() => {
@@ -35,12 +74,9 @@ const Deposit = () => {
                     setError("Document does not exist!");
                 }
             } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
+
             }
         };
-
         fetchDocument();
     }, []);
 
@@ -52,8 +88,6 @@ const Deposit = () => {
         >
             <Head title="Dashboard" />
             <div className="py-12 bg-white p-5">
-                {loading && <p>Loading</p>}
-                {error && <p className="text-red-600">{error}</p>}
 
                 {user && <DescriptionList>
                     <DescriptionTerm>Photo</DescriptionTerm>
@@ -73,30 +107,12 @@ const Deposit = () => {
                     <DescriptionTerm>Diamond</DescriptionTerm>
                     <DescriptionDetails>{user.diamond}</DescriptionDetails>
 
-                    <DescriptionTerm>Level</DescriptionTerm>
-                    <DescriptionDetails>{user.level}</DescriptionDetails>
-                </DescriptionList>}
+
+                </DescriptionList>
+                }
+                <hr />
 
                 <form onSubmit={submit}>
-                    <Field>
-                        <Label>Full name</Label>
-                        <Input
-                            name="name"
-                            value={data.name}
-                            onChange={(e) => setData('name', e.target.value)}
-                        />
-                        {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
-                    </Field>
-
-                    <Field>
-                        <Label>Photo URL</Label>
-                        <Input
-                            name="photoURL"
-                            value={data.photoURL}
-                            onChange={(e) => setData('photoURL', e.target.value)}
-                        />
-                        {errors.photoURL && <ErrorMessage>{errors.photoURL}</ErrorMessage>}
-                    </Field>
 
                     <Field>
                         <Label>Diamond</Label>
@@ -108,23 +124,19 @@ const Deposit = () => {
                         />
                         {errors.diamond && <ErrorMessage>{errors.diamond}</ErrorMessage>}
                     </Field>
+
                     <Field>
-                        <Label>Commission</Label>
+                        <Label>Secret Password</Label>
                         <Input
-                            name="commission"
-                            type="number"
-                            value={data.commission}
-                            onChange={(e) => setData('commission', e.target.value)}
+                            name="password"
+                            type="string"
+                            value={data.password}
+                            onChange={(e) => setData('password', e.target.value)}
                         />
-                        {errors.commission && <ErrorMessage>{errors.commission}</ErrorMessage>}
+                        {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
                     </Field>
-
-
-                    {/* <div className="max-w-sm">
-                                <ThumbnailInput name="thumbnail" setData={setData} errors={errors} placeholder="Thumbnail" />
-                            </div> */}
                     <div className="py-2">
-                        <SubmitButton />
+                        <SubmitButton title="Deposit" />
                     </div>
                 </form>
             </div>
