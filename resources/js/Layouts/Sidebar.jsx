@@ -48,9 +48,9 @@ const navigation = [
         icon: UserGroupIcon,
         current: false,
         children: [
-            { name: 'Host List', href: route('admin.hosts')},
-            { name: 'Agent List', href: route('admin.agents')},
-            { name: 'TopUp List', href: route('admin.agents')},
+            { name: 'Host List', href: route('admin.hosts') },
+            { name: 'Agent List', href: route('admin.agents') },
+            { name: 'TopUp List', href: route('admin.topups') },
         ],
     },
 
@@ -63,7 +63,7 @@ const teams = [
 ];
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
-    const {props} = usePage();
+    const { props } = usePage();
 
     return (
         <>
@@ -101,24 +101,60 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                         <ul role="list" className="-mx-2 space-y-1">
                                             {navigation.map((item) => (
                                                 <li key={item.name}>
-                                                    <a
-                                                        href={item.href}
-                                                        className={classNames(
-                                                            item.current
-                                                                ? 'bg-gray-50 text-indigo-600'
-                                                                : 'text-gray-800 dark:text-gray-400 hover:bg-gray-50 hover:text-indigo-600',
-                                                            'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
-                                                        )}
-                                                    >
-                                                        <item.icon
-                                                            aria-hidden="true"
+                                                    {!item.children ?
+                                                        (<Link
+                                                            href={item.href}
                                                             className={classNames(
-                                                                item.current ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600',
-                                                                'h-6 w-6 shrink-0',
+                                                                item.current
+                                                                    ? 'bg-gray-100 dark:bg-slate-900'
+                                                                    : 'text-gray-800 dark:text-gray-400 dark:hover:bg-slate-900 hover:bg-gray-100 hover:text-indigo-600',
+                                                                'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
                                                             )}
-                                                        />
-                                                        {item.name}
-                                                    </a>
+                                                        >
+                                                            <item.icon
+                                                                aria-hidden="true"
+                                                                className={classNames(
+                                                                    item.current ? 'text-indigo-600 dark:text-gray-400' : 'text-gray-400',
+                                                                    'h-6 w-6 shrink-0',
+                                                                )}
+                                                            />
+                                                            {item.name}
+                                                        </Link>) :
+                                                        <Disclosure as="div">
+                                                            <DisclosureButton
+                                                                className={classNames(
+                                                                    item.current ? 'bg-gray-50' : 'hover:bg-gray-50',
+                                                                    'group flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700',
+                                                                )}
+                                                            >
+                                                                <item.icon aria-hidden="true" className="h-6 w-6 shrink-0 text-gray-400" />
+                                                                {item.name}
+                                                                <ChevronRightIcon
+                                                                    aria-hidden="true"
+                                                                    className="ml-auto h-5 w-5 shrink-0 text-gray-400 group-data-[open]:rotate-90 group-data-[open]:text-gray-500"
+                                                                />
+                                                            </DisclosureButton>
+                                                            <DisclosurePanel as="ul" className="mt-1 px-2">
+                                                                {item.children.map((subItem) => (
+                                                                    <li key={subItem.name} >
+                                                                        {/* 44px */}
+                                                                        <Link
+                                                                            // as="a"
+                                                                            href={subItem.href}
+                                                                            className={classNames(
+                                                                                subItem.current ? 'bg-gray-50' : 'hover:bg-gray-50',
+                                                                                'block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-gray-700',
+                                                                            )}
+                                                                        >
+                                                                            {subItem.name}
+                                                                        </Link>
+                                                                    </li>
+                                                                ))}
+                                                            </DisclosurePanel>
+                                                        </Disclosure>
+
+                                                    }
+
                                                 </li>
                                             ))}
                                         </ul>

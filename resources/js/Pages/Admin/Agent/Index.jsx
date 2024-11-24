@@ -14,7 +14,7 @@ const Index = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const q = query(collection(db, "users"), where("agency", "!=", false));
+            const q = query(collection(db, "users"), where("agent", "!=", false));
             const querySnapshot = await getDocs(q);
             const items = querySnapshot.docs.map((doc) => ({
                 id: doc.id,
@@ -63,7 +63,7 @@ const Index = () => {
                                             <TableCell className="text-zinc-500">
                                                 <div className="py-2 space-x-2">
                                                     {user.isHost && <Badge color="lime">Host</Badge>}
-                                                    {user.isAgency && <Badge color="purple">Agency</Badge>}
+                                                    {user.agent && <Badge color="purple">Agent</Badge>}
                                                     {user.isTopup && <Badge color="purple">TopUp</Badge>}
                                                 </div>
 

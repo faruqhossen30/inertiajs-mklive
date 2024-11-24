@@ -30,6 +30,8 @@ const Show = () => {
 
                 if (docSnap.exists()) {
                     setUser(docSnap.data());
+                    console.log(docSnap.data());
+
                 } else {
                     setError("Document does not exist!");
                 }
@@ -66,11 +68,11 @@ const Show = () => {
         }
     };
 
-    const setToAgency = async () => {
+    const setToAgent = async () => {
         try {
             const docRef = doc(db, "users", uid);
             updateDoc(docRef, {
-                agency: {
+                agent: {
                     name: user.name,
                     hostingList: [],
                     start: serverTimestamp(),
@@ -84,10 +86,10 @@ const Show = () => {
         }
     };
 
-    const removeFromAgency = async () => {
+    const removeFromAgent = async () => {
         try {
             const docRef = doc(db, "users", uid);
-            updateDoc(docRef, { agency: null })
+            updateDoc(docRef, { agent: null })
             console.log("Document updated successfully!");
             location.reload()
         } catch (error) {
@@ -100,7 +102,13 @@ const Show = () => {
     const setTopUp = async () => {
         try {
             const docRef = doc(db, "users", uid);
-            updateDoc(docRef, { isTopup: true })
+            updateDoc(docRef, {
+                topup: {
+                    name: user.name,
+                    start: serverTimestamp(),
+                    status: true
+                }
+            })
             console.log("Document updated successfully!");
             location.reload()
         } catch (error) {
@@ -111,7 +119,7 @@ const Show = () => {
     const removeFromTopUp = async () => {
         try {
             const docRef = doc(db, "users", uid);
-            updateDoc(docRef, { isTopup: false })
+            updateDoc(docRef, { topup: false })
             console.log("Document updated successfully!");
             location.reload()
         } catch (error) {
@@ -152,18 +160,8 @@ const Show = () => {
                     <DescriptionTerm>Level</DescriptionTerm>
                     <DescriptionDetails>{user.level}</DescriptionDetails>
 
-                    <DescriptionTerm>Host - { }</DescriptionTerm>
-
-
-
+                    {/* <DescriptionTerm>Host - { }</DescriptionTerm>
                     <DescriptionDetails>
-                        {/* <Link href={route('admin.user.sethost', user.uid)} className="border px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
-                            Set to Host
-                        </Link> */}
-                        {/* <Button type="button" onClick={()=>setToHost() }  >Add T</Button> */}
-
-                        {/* <StatusAlert icon={<PlusIcon className="w-4 h-5" />} title="Add to host" href={route('admin.user.show', 'sdfsdf')} /> */}
-
                         {user.isHost ?
                             <button onClick={() => removeFromHost()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
                                 <XMarkIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Remove From Host {user.isHost}</span>
@@ -173,25 +171,24 @@ const Show = () => {
                                 <PlusCircleIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Set to Host {user.isHost}</span>
                             </button>
                         }
+                    </DescriptionDetails> */}
 
-                    </DescriptionDetails>
-
-                    <DescriptionTerm>Agency</DescriptionTerm>
+                    <DescriptionTerm>Agent</DescriptionTerm>
                     <DescriptionDetails>
-                        {user.agency ?
-                            <button onClick={() => removeFromAgency()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
-                                <XMarkIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Remove From Agency {user.isHost}</span>
+                        {user.agent ?
+                            <button onClick={() => removeFromAgent()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
+                                <XMarkIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Remove From Agent {user.isHost}</span>
                             </button>
 
-                            : <button onClick={() => setToAgency()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
-                                <PlusCircleIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Set to Agency {user.isHost}</span>
+                            : <button onClick={() => setToAgent()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
+                                <PlusCircleIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Set to Agent {user.isHost}</span>
                             </button>
                         }
                     </DescriptionDetails>
 
                     <DescriptionTerm>Topup</DescriptionTerm>
                     <DescriptionDetails>
-                        {user.isTopup ?
+                        {user.topup ?
                             <button onClick={() => removeFromTopUp()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
                                 <XMarkIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Remove From TopUP {user.isHost}</span>
                             </button>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\EmojiController;
 use App\Http\Controllers\Admin\GiftController;
 use App\Http\Controllers\Admin\HostController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TopupController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WallpeperController;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('admin.users');
     Route::get('hosts', [HostController::class, 'index'])->name('admin.hosts');
     Route::get('agents', [AgentController::class, 'index'])->name('admin.agents');
-
+    Route::get('topups', [TopupController::class, 'index'])->name('admin.topups');
 
 
     Route::get('user/{uid}', [UserController::class, 'show'])->name('admin.user.show');
