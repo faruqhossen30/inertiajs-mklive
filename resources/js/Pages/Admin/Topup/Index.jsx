@@ -42,6 +42,8 @@ const Index = () => {
 
                             {/* <SearchFilter routeName={'product.index'} /> */}
                             {/* <!-- Table --> */}
+
+
                             <Table className="px-6" dense>
                                 <TableHead>
                                     <TableRow>
@@ -72,7 +74,7 @@ const Index = () => {
                                                 {/* <Link href="" className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
                                                     <CogIcon className="w-4 h-4" />
                                                 </Link> */}
-                                                <Link href={route('admin.user.deposit', user.uid)} className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
+                                                <Link href={route('admin.topup.deposit', user.uid)} className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
                                                     <GiftIcon className="w-4 h-4" />
                                                 </Link>
 

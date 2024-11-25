@@ -1,9 +1,9 @@
 import BreadcumComponent from '@/Components/Dashboard/BreadcumComponent'
 import { db } from '@/firebase'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { CogIcon, EyeIcon, GiftIcon, PencilIcon } from '@heroicons/react/24/outline'
+import { CogIcon, EyeIcon, GiftIcon, PencilIcon, PowerIcon } from '@heroicons/react/24/outline'
 import { Head, Link } from '@inertiajs/react'
-import { collection, getDocs,orderBy } from 'firebase/firestore'
+import { collection, getDocs, orderBy } from 'firebase/firestore'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
@@ -55,7 +55,7 @@ const Index = () => {
                                 <TableBody>
                                     {users.map((user, index) => (
                                         <TableRow key={index}>
-                                            <TableCell className="font-medium">{index+1}</TableCell>
+                                            <TableCell className="font-medium">{index + 1}</TableCell>
                                             <TableCell className="font-medium">
                                                 <img src={user.photoURL} alt="photo" className="h-10 rounded border" />
                                             </TableCell>
@@ -69,22 +69,15 @@ const Index = () => {
 
                                             </TableCell>
                                             <TableCell className="text-zinc-500 flex items-center space-x-1">
-                                                {/* <Link href="" className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
-                                                    <CogIcon className="w-4 h-4" />
-                                                </Link> */}
-                                                <Link href={route('admin.user.deposit', user.uid)} className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
-                                                    <GiftIcon className="w-4 h-4" />
-                                                </Link>
-
-                                                <Link href={route('admin.user.show', user.uid)} className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
-                                                    <EyeIcon className="w-4 h-4" />
-                                                </Link>
-
-                                                <Link href="#" className="border p-1 rounded-md dark:border-gray-700 text-green-500">
-                                                    <PencilIcon className="w-4 h-5" />
-                                                </Link>
-                                                {/* <DeleteAlert title="product" href="" /> */}
+                                                <button
+                                                    href="#"
+                                                    className="flex border p-2 space-x-2 rounded-md dark:border-gray-700 text-green-500 hover:text-red-500 transition-colors"
+                                                >
+                                                    <PowerIcon className="w-4 h-5" />
+                                                    <p className="hover:font-bold">Live</p>
+                                                </button>
                                             </TableCell>
+
                                         </TableRow>
                                     ))}
                                 </TableBody>

@@ -22,14 +22,17 @@ import {
     DocumentDuplicateIcon,
     FaceSmileIcon,
     FolderIcon,
+    FolderOpenIcon,
     GiftIcon,
     HomeIcon,
+    PhotoIcon,
     UserGroupIcon,
     UsersIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon, GiftTopIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Link, usePage } from '@inertiajs/react'
+import { MicrophoneIcon, VideoCameraIcon } from '@heroicons/react/24/outline'
 
 
 function classNames(...classes) {
@@ -40,9 +43,14 @@ function classNames(...classes) {
 const navigation = [
     { name: 'Dashboard', href: route('dashboard'), icon: HomeIcon, current: true },
     { name: 'Users', href: route('admin.users'), icon: UserGroupIcon, current: false },
+    { name: 'Audio Live', href: route('admin.audio.live'), icon: MicrophoneIcon, current: false },
+    { name: 'Video Live', href: route('admin.video.live'), icon: VideoCameraIcon, current: false },
     { name: 'Gifts', href: route('gifts.index'), icon: GiftIcon, current: false },
     { name: 'Emoji', href: route('emojis.index'), icon: FaceSmileIcon, current: false },
     { name: 'Wallpagers', href: route('wallpapers.index'), icon: FaceSmileIcon, current: false },
+    { name: 'Avatar', href: route('avatar.index'), icon: PhotoIcon, current: false },
+    { name: 'Entry frame', href: route('frame.index'), icon: FolderOpenIcon , current: false },
+    { name: 'Gift Animation', href: route('animation.index'), icon: GiftTopIcon, current: false },
     {
         name: 'Admin',
         icon: UserGroupIcon,

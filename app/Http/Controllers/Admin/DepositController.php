@@ -74,4 +74,30 @@ class DepositController extends Controller
     {
         //
     }
+
+
+    public function createTopup() {
+
+        // return 1;
+        return Inertia::render('Admin/User/TopUp');
+    }
+
+
+    public function storeTopup(Request $request) {
+
+        $diamond_password = Auth::user()->diamond_password;
+
+        $request->validate(
+            [
+                'diamond' => 'required',
+                'password' => "required |in:{$diamond_password}",
+            ],
+            [
+                'password.in' => "Diamond secret password is wrong !"
+            ]
+        );
+
+    }
+
+
 }

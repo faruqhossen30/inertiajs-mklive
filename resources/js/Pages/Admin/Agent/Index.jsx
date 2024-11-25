@@ -8,6 +8,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
 import { Badge } from '@/components/badge'
+import SearchFilter from '@/Components/Custom/SearchFilter'
 
 const Index = () => {
     const [users, setUsers] = useState([]);
@@ -40,7 +41,7 @@ const Index = () => {
                     <div className="p-1.5 min-w-full inline-block align-middle">
                         <div className="bg-white border border-gray-200 rounded-md shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
 
-                            {/* <SearchFilter routeName={'product.index'} /> */}
+                            <SearchFilter routeName={'product.index'} />
                             {/* <!-- Table --> */}
                             <Table className="px-6" dense>
                                 <TableHead>
