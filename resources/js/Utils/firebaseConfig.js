@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyADiX4Muc-wBPj-EzG9bPkh160rLlWXq40",
-  authDomain: "citylive-8604e.firebaseapp.com",
-  projectId: "citylive-8604e",
-  storageBucket: "citylive-8604e.appspot.com",
-  messagingSenderId: "1017003491918",
-  appId: "1:1017003491918:web:9033d2b7d50110d5fbb91f"
+    apiKey: "AIzaSyC9-aXmDIUBkj7KOhceA-jebjOL2T28d5M",
+    authDomain: "mklive-ba68e.firebaseapp.com",
+    projectId: "mklive-ba68e",
+    storageBucket: "mklive-ba68e.appspot.com",
+    messagingSenderId: "211550180675",
+    appId: "1:211550180675:web:79a9a6e424c088e12acbf6"
 };
 
 // Initialize Firebase
