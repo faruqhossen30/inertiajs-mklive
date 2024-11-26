@@ -78,9 +78,11 @@ const Show = () => {
                     start: serverTimestamp(),
                     status: true
                 }
+            }).then(()=>{
+                location.reload();
             })
             console.log("Document updated successfully!");
-            location.reload()
+
         } catch (error) {
             console.error("Error updating document:", error);
         }
@@ -90,6 +92,9 @@ const Show = () => {
         try {
             const docRef = doc(db, "users", uid);
             updateDoc(docRef, { agent: null })
+            .then(()=>{
+                location.reload();
+            })
             console.log("Document updated successfully!");
             location.reload()
         } catch (error) {
