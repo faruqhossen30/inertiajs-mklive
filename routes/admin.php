@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\GiftAnimationController;
 use App\Http\Controllers\Admin\GiftController;
 use App\Http\Controllers\Admin\HostController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\TopupController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VideoLiveController;
@@ -56,7 +57,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
 
 
-
+    Route::get('test', [TestController::class, 'index'])->name('admin.test');
 
     Route::resource('gifts', GiftController::class);
     Route::resource('emojis', EmojiController::class);
