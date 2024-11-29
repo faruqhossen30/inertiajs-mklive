@@ -1,7 +1,7 @@
 import BreadcumComponent from '@/Components/Dashboard/BreadcumComponent'
 import { db } from '@/firebase'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { CogIcon, EyeIcon, GiftIcon, PencilIcon } from '@heroicons/react/24/outline'
+import { CogIcon, EyeIcon, GiftIcon, LockClosedIcon, PencilIcon } from '@heroicons/react/24/outline'
 import { Head, Link } from '@inertiajs/react'
 import { collection, getDocs,orderBy } from 'firebase/firestore'
 import React, { useState } from 'react'
@@ -48,7 +48,7 @@ const Index = () => {
                                         <TableHeader>S.N</TableHeader>
                                         <TableHeader>Photo</TableHeader>
                                         <TableHeader>Title</TableHeader>
-                                        <TableHeader>Status</TableHeader>
+                                        <TableHeader>Roll</TableHeader>
                                         <TableHeader>Action</TableHeader>
                                     </TableRow>
                                 </TableHead>
@@ -72,9 +72,12 @@ const Index = () => {
                                                 {/* <Link href="" className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
                                                     <CogIcon className="w-4 h-4" />
                                                 </Link> */}
-                                                <Link href={route('admin.user.deposit', user.uid)} className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
-                                                    <GiftIcon className="w-4 h-4" />
+                                                {(user.status || user.status == null) &&
+                                                    <Link href={route('admin.user.disable', user.uid)} method="post" as="button" className="flex text-red-500 items-center space-x-1 border p-1 rounded-md dark:border-gray-700 text-gray-500">
+                                                    <LockClosedIcon className="w-4 h-4" />
+                                                    <span>Disable</span>
                                                 </Link>
+                                                }
 
                                                 <Link href={route('admin.user.show', user.uid)} className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
                                                     <EyeIcon className="w-4 h-4" />
@@ -83,6 +86,10 @@ const Index = () => {
                                                 <Link href="#" className="border p-1 rounded-md dark:border-gray-700 text-green-500">
                                                     <PencilIcon className="w-4 h-5" />
                                                 </Link>
+                                                <Link href={route('admin.user.deposit', user.uid)} className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
+                                                    <GiftIcon className="w-4 h-4" />
+                                                </Link>
+
                                                 {/* <DeleteAlert title="product" href="" /> */}
                                             </TableCell>
                                         </TableRow>

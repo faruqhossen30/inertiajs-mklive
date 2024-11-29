@@ -29,8 +29,15 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('settings', [SettingController::class, 'index'])->name('settings');
     Route::get('setting/agora', [SettingController::class, 'agora'])->name('settings.agora.create');
     Route::post('setting/agora', [AgoraController::class, 'store'])->name('settings.agora.store');
+
+
+    Route::prefix('users')->group(function(){
+        Route::get('/', [UserController::class, 'index'])->name('admin.users');
+        Route::post('/disable/{uid}', [UserController::class, 'disableAccount'])->name('admin.user.disable');
+    });
+
     // Users
-    Route::get('users', [UserController::class, 'index'])->name('admin.users');
+
     Route::get('hosts', [HostController::class, 'index'])->name('admin.hosts');
     Route::get('agents', [AgentController::class, 'index'])->name('admin.agents');
 

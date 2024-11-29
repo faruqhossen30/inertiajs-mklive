@@ -10,6 +10,15 @@ use Google\Cloud\Firestore\FirestoreClient;
 
 class UserController extends Controller
 {
+    // protected $firestore;
+
+    // public function __construct()
+    // {
+    //     $this->firestore = new FirestoreClient([
+    //         'projectId' => env('FIREBASE_PROJECT_ID')
+    //     ]);
+    // }
+
     /**
      * Display a listing of the resource.
      */
@@ -78,5 +87,10 @@ class UserController extends Controller
     public function setAsHost(string $uid)
     {
 
+    }
+
+    public function disableAccount()
+    {
+        return "disable Account";
     }
 }

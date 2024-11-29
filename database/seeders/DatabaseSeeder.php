@@ -19,8 +19,9 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name'     => 'Test User',
-            'email'    => 'admin@gmail.com',
-            'password' => Hash::make('123')
+            'email'    => 'honeylive@gmail.com',
+            'password' => Hash::make('honey123'),
+            'diamond_password' => '11223344'
         ]);
 
         Agora::create([
