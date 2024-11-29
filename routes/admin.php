@@ -36,10 +36,16 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::post('/disable/{uid}', [UserController::class, 'disableAccount'])->name('admin.user.disable');
     });
 
+    Route::prefix('agents')->group(function(){
+        Route::get('/', [AgentController::class, 'index'])->name('admin.agents');
+        Route::post('/remove/{uid}', [AgentController::class, 'agentRemove'])->name('admin.agents.remove');
+    });
+
+
     // Users
 
     Route::get('hosts', [HostController::class, 'index'])->name('admin.hosts');
-    Route::get('agents', [AgentController::class, 'index'])->name('admin.agents');
+
 
     Route::get('topups', [TopupController::class, 'index'])->name('admin.topups');
 

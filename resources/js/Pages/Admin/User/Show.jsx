@@ -181,9 +181,9 @@ const Show = () => {
                     <DescriptionTerm>Agent</DescriptionTerm>
                     <DescriptionDetails>
                         {user.agent ?
-                            <button onClick={() => removeFromAgent()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
+                            <Link href={route('admin.agents.remove', user.uid)} method='post' as='button' className="border inline-flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
                                 <XMarkIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Remove From Agent {user.isHost}</span>
-                            </button>
+                            </Link>
 
                             : <button onClick={() => setToAgent()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
                                 <PlusCircleIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Set to Agent {user.isHost}</span>
