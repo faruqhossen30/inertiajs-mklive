@@ -32,7 +32,7 @@ const Deposit = () => {
 
     function submit(e) {
         e.preventDefault()
-        post(route('admin.user.deposit.store', uid),
+        post(route('admin.topup.deposit.store', uid),
             {
                 onSuccess: () => {
                     depositDiamond();
@@ -47,18 +47,16 @@ const Deposit = () => {
     const depositDiamond = async () => {
         const reciverRef = doc(db, "users", uid);
         await updateDoc(reciverRef, {
-            diamond: increment(data.diamond)
+            topupDiamond: increment(Number(data.diamond))
         })
         const docRef = await addDoc(collection(db, "deposits"), {
             reciverRef: reciverRef,
-            diamond: data.diamond,
+            diamond: Number(data.diamond),
             depositBy: 'admin',
             createdAt: serverTimestamp(),
         });
         location.reload();
     }
-
-
 
 
 
@@ -124,8 +122,8 @@ const Deposit = () => {
                                             <p className="text-gray-900">{user.id}</p>
                                         </div>
                                         <div className="flex justify-between">
-                                            <p className="font-medium text-gray-700">Diamond:</p>
-                                            <p className="text-gray-900">{user.diamond}</p>
+                                            <p className="font-medium text-gray-700">Topup Balance:</p>
+                                            <p className="text-green-600 text-xl font-extrabold ">{user.topupDiamond}</p>
                                         </div>
                                     </div>
                                 </div>

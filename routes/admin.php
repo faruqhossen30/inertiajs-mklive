@@ -31,20 +31,22 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('setting/agora', [AgoraController::class, 'store'])->name('settings.agora.store');
 
 
-    Route::prefix('users')->group(function(){
+    Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('admin.users');
         Route::post('/disable/{uid}', [UserController::class, 'disableAccount'])->name('admin.user.disable');
     });
 
-    Route::prefix('agents')->group(function(){
+    Route::prefix('agents')->group(function () {
         Route::get('/', [AgentController::class, 'index'])->name('admin.agents');
         Route::post('/remove/{uid}', [AgentController::class, 'agentRemove'])->name('admin.agents.remove');
     });
 
-    Route::prefix('topups')->group(function(){
+    Route::prefix('topups')->group(function () {
         Route::get('/', [TopupController::class, 'index'])->name('admin.topups');
         Route::post('/addtopup/{uid}', [TopupController::class, 'addTopUp'])->name('admin.topups.add');
         Route::post('/removetopup/{uid}', [TopupController::class, 'removeTopUp'])->name('admin.topups.remove');
+        Route::get('{uid}/deposit/topup', [DepositController::class, 'createTopup'])->name('admin.topup.deposit');
+        Route::post('{uid}/deposit/topup', [DepositController::class, 'storeTopup'])->name('admin.topup.deposit.store');
     });
 
 
@@ -71,8 +73,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('{uid}/deposit/user', [DepositController::class, 'create'])->name('admin.user.deposit');
     Route::post('{uid}/deposit/user', [DepositController::class, 'store'])->name('admin.user.deposit.store');
 
-    Route::get('{uid}/deposit/topup', [DepositController::class, 'createTopup'])->name('admin.topup.deposit');
-    Route::post('{uid}/deposit/topup', [DepositController::class, 'storeTopup'])->name('admin.topup.deposit.store');
+
 
 
 
