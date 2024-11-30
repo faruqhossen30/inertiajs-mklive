@@ -45,28 +45,6 @@ const Show = () => {
         fetchDocument();
     }, []);
 
-    // Host
-    const setToHost = async () => {
-        try {
-            const docRef = doc(db, "users", uid);
-            updateDoc(docRef, { isHost: true })
-            console.log("Document updated successfully!");
-            location.reload()
-        } catch (error) {
-            console.error("Error updating document:", error);
-        }
-    };
-
-    const removeFromHost = async () => {
-        try {
-            const docRef = doc(db, "users", uid);
-            updateDoc(docRef, { isHost: false })
-            console.log("Document updated successfully!");
-            location.reload()
-        } catch (error) {
-            console.error("Error updating document:", error);
-        }
-    };
 
     const setToAgent = async () => {
         try {
@@ -78,7 +56,7 @@ const Show = () => {
                     start: serverTimestamp(),
                     status: true
                 }
-            }).then(()=>{
+            }).then(() => {
                 location.reload();
             })
             console.log("Document updated successfully!");
@@ -92,9 +70,9 @@ const Show = () => {
         try {
             const docRef = doc(db, "users", uid);
             updateDoc(docRef, { agent: null })
-            .then(()=>{
-                location.reload();
-            })
+                .then(() => {
+                    location.reload();
+                })
             console.log("Document updated successfully!");
             location.reload()
         } catch (error) {
@@ -124,7 +102,7 @@ const Show = () => {
     const removeFromTopUp = async () => {
         try {
             const docRef = doc(db, "users", uid);
-            updateDoc(docRef, { topup: false })
+            updateDoc(docRef, { topup: null })
             console.log("Document updated successfully!");
             location.reload()
         } catch (error) {
@@ -193,19 +171,20 @@ const Show = () => {
 
                     <DescriptionTerm>Topup</DescriptionTerm>
                     <DescriptionDetails>
-                        {user.topup ?
-                            <button onClick={() => removeFromTopUp()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
-                                <XMarkIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Remove From TopUP {user.isHost}</span>
-                            </button>
+                        {user.topup
 
-                            : <button onClick={() => setTopUp()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
-                                <PlusCircleIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Set to TopUp {user.isHost}</span>
-                            </button>
+                            // <button onClick={() => removeFromTopUp()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
+                            //     <XMarkIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Remove From TopUP {user.isHost}</span>
+                            // </button>
+
+                            ? <Link href={route('admin.topups.remove', user.uid)} method='post' as='button' className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
+                                <PlusCircleIcon className="text-red-400 w-6 hover:text-green-400" /> <span>remove From Topup</span>
+                            </Link>
+                                : <Link href={route('admin.topups.add', user.uid)} method='post' as='button' className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
+                                    <PlusCircleIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Add to TopUP {user.isHost}</span>
+                                </Link>
                         }
                     </DescriptionDetails>
-
-
-
 
                 </DescriptionList>}
             </div>

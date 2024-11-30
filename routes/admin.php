@@ -41,13 +41,20 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::post('/remove/{uid}', [AgentController::class, 'agentRemove'])->name('admin.agents.remove');
     });
 
+    Route::prefix('topups')->group(function(){
+        Route::get('/', [TopupController::class, 'index'])->name('admin.topups');
+        Route::post('/addtopup/{uid}', [TopupController::class, 'addTopUp'])->name('admin.topups.add');
+        Route::post('/removetopup/{uid}', [TopupController::class, 'removeTopUp'])->name('admin.topups.remove');
+    });
+
+
 
     // Users
 
     Route::get('hosts', [HostController::class, 'index'])->name('admin.hosts');
 
 
-    Route::get('topups', [TopupController::class, 'index'])->name('admin.topups');
+
 
     Route::resource('avatar', AvatarController::class);
     Route::resource('entry/frame', EntryFrameController::class);

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Google\Cloud\Firestore\FieldValue;
+use Google\Cloud\Firestore\FieldValue\ServerTimestampValue;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Google\Cloud\Firestore\FirestoreClient;
 
 class TopupController extends Controller
 {
@@ -15,52 +19,42 @@ class TopupController extends Controller
     {
         return Inertia::render('Admin/Topup/Index');
     }
-
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      */
-    public function create()
+    public function addTopUp($uid)
     {
-        //
+        $firestore =  new FirestoreClient([
+            'projectId' => env('FIREBASE_PROJECT_ID')
+        ]);
+
+        $firebaseUser = $firestore->collection('users')->document($uid);
+
+        $user = $firebaseUser->snapshot()->data();
+
+        $firebaseUser->update([
+            ['path' => 'topup', 'value' => [
+                'name' => $user['name'],
+                'start' => Carbon::now(),
+                'status' => true,
+            ]]
+        ]);
+        return to_route('admin.agents');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function removeTopUp($uid)
     {
-        //
-    }
+        $firestore =  new FirestoreClient([
+            'projectId' => env('FIREBASE_PROJECT_ID')
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $firebaseUser = $firestore->collection('users')->document($uid);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $firebaseUser->update([
+            ['path' => 'topup', 'value' => null]
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return to_route('admin.users');
     }
 }
