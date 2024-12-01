@@ -17,10 +17,10 @@ const Create = () => {
         commission: 0,
     });
 
-    function submit(e){
-        e.preventDefault()
-        post(route('gifts.store'));
-    }
+    // function submit(e){
+    //     e.preventDefault()
+    //     post(route('gifts.store'));
+    // }
 
     const createGift = async ()=>{
         const docRef = await addDoc(collection(db, "gifts"),{

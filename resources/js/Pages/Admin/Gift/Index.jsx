@@ -50,7 +50,6 @@ const Index = () => {
                                         <TableHeader>Photo</TableHeader>
                                         <TableHeader>Title</TableHeader>
                                         <TableHeader>Diamond</TableHeader>
-                                        <TableHeader>Commision</TableHeader>
                                         <TableHeader>Action</TableHeader>
                                     </TableRow>
                                 </TableHead>
@@ -64,9 +63,6 @@ const Index = () => {
                                             <TableCell className="font-medium">{item.name}</TableCell>
                                             <TableCell className="text-zinc-500">
                                                 {item.diamond}
-                                            </TableCell>
-                                            <TableCell className="text-zinc-500">
-                                                {item.commission}
                                             </TableCell>
                                             <TableCell className="text-zinc-500 flex items-center space-x-1">
                                                 <Link href="" className="border p-1 rounded-md dark:border-gray-700 text-gray-500">

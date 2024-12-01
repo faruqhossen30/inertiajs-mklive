@@ -10,6 +10,6 @@ class VideoLiveController extends Controller
 {
    public function index()  {
 
-        return Inertia::render('Admin/Video/Index');
+        return Inertia::render('Admin/VideoLive/Index');
    }
 }

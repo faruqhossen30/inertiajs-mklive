@@ -172,11 +172,6 @@ const Show = () => {
                     <DescriptionTerm>Topup</DescriptionTerm>
                     <DescriptionDetails>
                         {user.topup
-
-                            // <button onClick={() => removeFromTopUp()} className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
-                            //     <XMarkIcon className="text-red-400 w-6 hover:text-green-400" /> <span>Remove From TopUP {user.isHost}</span>
-                            // </button>
-
                             ? <Link href={route('admin.topups.remove', user.uid)} method='post' as='button' className="border flex space-x-2 px-2 py-1 border-red-400 rounded text-red-400 hover:text-green-400 hover:border-green-400">
                                 <PlusCircleIcon className="text-red-400 w-6 hover:text-green-400" /> <span>remove From Topup</span>
                             </Link>

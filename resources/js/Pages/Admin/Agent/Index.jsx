@@ -1,7 +1,7 @@
 import BreadcumComponent from '@/Components/Dashboard/BreadcumComponent'
 import { db } from '@/firebase'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { CogIcon, EyeIcon, GiftIcon, PencilIcon } from '@heroicons/react/24/outline'
+import { CogIcon, EyeIcon, GiftIcon, PencilIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import { Head, Link } from '@inertiajs/react'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import React, { useState } from 'react'
@@ -49,7 +49,7 @@ const Index = () => {
                                         <TableHeader>S.N</TableHeader>
                                         <TableHeader>Photo</TableHeader>
                                         <TableHeader>Title</TableHeader>
-                                        <TableHeader>Status</TableHeader>
+                                        <TableHeader>Hosts</TableHeader>
                                         <TableHeader>Action</TableHeader>
                                     </TableRow>
                                 </TableHead>
@@ -62,11 +62,11 @@ const Index = () => {
                                             </TableCell>
                                             <TableCell className="font-medium">{user.name}</TableCell>
                                             <TableCell className="text-zinc-500">
-                                                <div className="py-2 space-x-2">
-                                                    {user.isHost && <Badge color="lime">Host</Badge>}
-                                                    {user.agent && <Badge color="purple">Agent</Badge>}
-                                                    {user.isTopup && <Badge color="purple">TopUp</Badge>}
-                                                </div>
+                                                <Link href={route('admin.agents.hostlist', user.uid)} className='flex items-center space-x-1 hover:text-green-500'>
+                                                    <UserGroupIcon className="w-4 h-4" /> <span>{
+                                                        (user.hostList ?? []).length
+                                                    }</span>
+                                                </Link>
 
                                             </TableCell>
                                             <TableCell className="text-zinc-500 flex items-center space-x-1">

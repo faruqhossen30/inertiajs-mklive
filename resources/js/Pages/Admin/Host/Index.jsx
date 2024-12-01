@@ -8,13 +8,14 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
 import { Badge } from '@/components/badge'
+import SearchFilter from '@/Components/Custom/SearchFilter'
 
 const Index = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const q = query(collection(db, "users"), where("isHost", "==", true));
+            const q = query(collection(db, "users"), where("host", "!=", false));
             const querySnapshot = await getDocs(q);
             const items = querySnapshot.docs.map((doc) => ({
                 id: doc.id,
@@ -32,7 +33,7 @@ const Index = () => {
         >
             <Head title="Dashboard" />
             <div className="flex justify-between items-center">
-                <BreadcumComponent pageOne="Hosts" pageOneRoute="admin.hosts" />
+                <BreadcumComponent pageOne="Agency" pageOneRoute="admin.agents" />
             </div>
 
             <div className="flex flex-col">
@@ -40,7 +41,7 @@ const Index = () => {
                     <div className="p-1.5 min-w-full inline-block align-middle">
                         <div className="bg-white border border-gray-200 rounded-md shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
 
-                            {/* <SearchFilter routeName={'product.index'} /> */}
+                            <SearchFilter routeName={'product.index'} />
                             {/* <!-- Table --> */}
                             <Table className="px-6" dense>
                                 <TableHead>
@@ -48,7 +49,7 @@ const Index = () => {
                                         <TableHeader>S.N</TableHeader>
                                         <TableHeader>Photo</TableHeader>
                                         <TableHeader>Title</TableHeader>
-                                        <TableHeader>Status</TableHeader>
+                                        <TableHeader>Agent</TableHeader>
                                         <TableHeader>Action</TableHeader>
                                     </TableRow>
                                 </TableHead>
@@ -61,17 +62,9 @@ const Index = () => {
                                             </TableCell>
                                             <TableCell className="font-medium">{user.name}</TableCell>
                                             <TableCell className="text-zinc-500">
-                                                <div className="py-2 space-x-2">
-                                                    {user.isHost && <Badge color="lime">Host</Badge>}
-                                                    {user.isAgency && <Badge color="purple">Agency</Badge>}
-                                                    {user.isTopup && <Badge color="purple">TopUp</Badge>}
-                                                </div>
-
+                                                <Badge color="lime">{user.host.agentName}</Badge>
                                             </TableCell>
                                             <TableCell className="text-zinc-500 flex items-center space-x-1">
-                                                {/* <Link href="" className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
-                                                    <CogIcon className="w-4 h-4" />
-                                                </Link> */}
                                                 <Link href={route('admin.user.deposit', user.uid)} className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
                                                     <GiftIcon className="w-4 h-4" />
                                                 </Link>

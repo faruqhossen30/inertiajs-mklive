@@ -38,6 +38,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     Route::prefix('agents')->group(function () {
         Route::get('/', [AgentController::class, 'index'])->name('admin.agents');
+        Route::get('/{uid}/host-list', [AgentController::class, 'hostList'])->name('admin.agents.hostlist');
         Route::post('/remove/{uid}', [AgentController::class, 'agentRemove'])->name('admin.agents.remove');
     });
 
@@ -49,21 +50,16 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::post('{uid}/deposit/topup', [DepositController::class, 'storeTopup'])->name('admin.topup.deposit.store');
     });
 
-
-
     // Users
 
     Route::get('hosts', [HostController::class, 'index'])->name('admin.hosts');
-
-
-
 
     Route::resource('avatar', AvatarController::class);
     Route::resource('entry/frame', EntryFrameController::class);
     Route::resource('gift/animation', GiftAnimationController::class);
 
-    Route::get('audio/live', [AudioLiveController::class, 'index'])->name('admin.audio.live');
-    Route::get('video/live', [VideoLiveController::class, 'index'])->name('admin.video.live');
+    Route::get('audio-live', [AudioLiveController::class, 'index'])->name('admin.audio.live');
+    Route::get('video-live', [VideoLiveController::class, 'index'])->name('admin.video.live');
 
 
     Route::get('user/{uid}', [UserController::class, 'show'])->name('admin.user.show');

@@ -31,29 +31,6 @@ class GiftController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'photoURL' => 'required',
-        //     'diamond' => 'required',
-        // ]);
-
-        try {
-            $db = new FirestoreClient([
-                'projectId' => 'mklive-ba68e',
-            ]);
-
-            $uid = 'PLnS5hpAslQgTIgaQA3MZFuw0yo1';
-
-            $firebaseUser = $db->collection('gifts')->document($uid);
-
-            $firebaseUser->update([
-                ['path' => 'isHost', 'value' => true]
-            ]);
-
-            return to_route('admin.user.show', $uid);
-        } catch (\Throwable $th) {
-            dd($th);
-        }
 
     }
 

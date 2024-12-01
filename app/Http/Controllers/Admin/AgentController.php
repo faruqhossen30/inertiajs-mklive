@@ -26,6 +26,11 @@ class AgentController extends Controller
         return Inertia::render('Admin/Agent/Index');
     }
 
+    public function hostList()
+    {
+        return Inertia::render('Admin/Agent/Index');
+    }
+
 
     public function agentRemove($uid)
     {

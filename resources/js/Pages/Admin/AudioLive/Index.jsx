@@ -15,7 +15,7 @@ const Index = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const querySnapshot = await getDocs(collection(db, "hosts"));
+            const querySnapshot = await getDocs(collection(db, "audiohosts"));
             const items = querySnapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
