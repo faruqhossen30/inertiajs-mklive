@@ -38,11 +38,10 @@ class GiftAnimationController extends Controller
 
         $data=[
             'name'=> $request->name,
-            'size'=> $request->size,
             'dimond'=> $request->dimond,
         ];
         if ($request->file('photoURL')) {
-            $file_name = $request->file('photoURL')->store('Gift/Animation');
+            $file_name = $request->file('photoURL')->store('gift/animation');
             $data['photoURL'] = $file_name;
         }
 

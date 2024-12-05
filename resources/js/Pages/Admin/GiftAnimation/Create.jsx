@@ -14,7 +14,6 @@ const Create = () => {
         name: '',
         photoURL: '',
         diamond: '',
-        size: '',
     });
 
     function submit(e){
@@ -62,7 +61,9 @@ const Create = () => {
                             </Field>
                             <Field>
                                 <Label>Photo URL</Label>
+                                <div className="max-w-sm">
                                 <ThumbnailInput name="photoURL" setData={setData} errors={errors} placeholder="Thumbnail" />
+                                </div>
                                 {errors.photoURL && <ErrorMessage>{errors.photoURL}</ErrorMessage>}
                             </Field>
                             <Field className="py-2">
@@ -74,16 +75,6 @@ const Create = () => {
                                     onChange={(e) => setData('dimond', e.target.value)}
                                 />
                                 {errors.dimond && <ErrorMessage>{errors.dimond}</ErrorMessage>}
-                            </Field>
-                            <Field className="">
-                                <Label>Size</Label>
-                                <Input
-                                    name="size"
-                                    type="text"
-                                    value={data.size}
-                                    onChange={(e) => setData('size', e.target.value)}
-                                />
-                                {errors.size && <ErrorMessage>{errors.size}</ErrorMessage>}
                             </Field>
 
                             <div className="py-2">
