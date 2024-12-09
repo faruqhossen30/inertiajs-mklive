@@ -46,6 +46,7 @@ const navigation = [
     { name: 'Audio Live', href: route('admin.audio.live'), icon: MicrophoneIcon, current: false },
     { name: 'Video Live', href: route('admin.video.live'), icon: VideoCameraIcon, current: false },
     { name: 'Gifts', href: route('gifts.index'), icon: GiftIcon, current: false },
+    { name: 'SVGA', href: route('svga.index'), icon: GiftIcon, current: false },
     { name: 'Emoji', href: route('emojis.index'), icon: FaceSmileIcon, current: false },
     { name: 'Wallpagers', href: route('wallpapers.index'), icon: FaceSmileIcon, current: false },
     { name: 'Avatar', href: route('avatar.index'), icon: PhotoIcon, current: false },
